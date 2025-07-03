@@ -1,5 +1,6 @@
 const app = require("../src/app")
 const supertest = require("supertest")
+const db = require('../src/config/db')
 const request = supertest(app)
 
 describe("Servidor", () => {
@@ -8,4 +9,3 @@ describe("Servidor", () => {
         expect(res.statusCode).toBe(200)
     })
 })
-

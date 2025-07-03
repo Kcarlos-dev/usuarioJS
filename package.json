@@ -4,7 +4,8 @@
   "description": "Uma pagina de usuario",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev": "nodemon src/server"
   },
   "author": "Carlos Souza",
   "license": "ISC",
