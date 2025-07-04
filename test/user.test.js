@@ -3,19 +3,16 @@ const supertest = require("supertest")
 const db = require('../src/config/db')
 const request = supertest(app)
 
-beforeAll(async () => {
-    await db.then((res) => {
-        res.sync({ force: true })
-    })
-})
+
 afterAll(async () => {
-    await db.then((res) => {
-        res.close()
+    await db.then((sequelize) => {
+        sequelize.close()
     })
 });
 describe("Cadastro de usuario", () => {
     test("Deve cadastrar um usuario com sucesso", () => {
-        const user = {nome:"Carlos Souza",
+        const user = {endereco:`{"rua":"henrique galucio ","bairro":"santa rita","estado":"AP"}`,
+                      nome:"Carlos Souza",
                       img:"/exemplo/",
                       idade:18,
                       biografia:"Eu sou um cara simples"}

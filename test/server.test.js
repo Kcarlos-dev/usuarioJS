@@ -3,14 +3,10 @@ const supertest = require("supertest")
 const db = require('../src/config/db')
 const request = supertest(app)
 
-beforeAll(async () => {
-    await db.then((res) => {
-        res.sync({ force: true })
-    })
-})
+
 afterAll(async () => {
-    await db.then((res) => {
-        res.close()
+    await db.then((sequelize) => {
+        sequelize.close()
     })
 });
 describe("Servidor", () => {

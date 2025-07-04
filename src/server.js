@@ -3,9 +3,9 @@ const userModel = require('./models/User')
 const db = require('./config/db')
 
 try {
-  db.then((res) => {
-    userModel(res)
-    res.sync()
+  db.then((sequelize) => {
+    userModel(sequelize)
+    sequelize.sync()
   })
   app.listen(3000, () => {
     console.log("Servidor rodando em http://localhost:3000/")
