@@ -38,8 +38,8 @@ const ImgUser = async (req, res) => {
     }
 
     try {
-        const sequelize = await db;
-        const user = User(sequelize);
+        const sequelize = await db
+        const user = User(sequelize)
 
         const idVerificado = await user.findOne({
             attributes: ['id'],
@@ -61,13 +61,53 @@ const ImgUser = async (req, res) => {
 
     } catch (error) {
         console.error("Erro no ImgUser:", error)
-        const sqlMsg = error.parent?.sqlMessage 
+        const sqlMsg = error.parent?.sqlMessage
         return res.status(500).json({ message: "Erro no servidor", erro: sqlMsg })
     }
-};
+}
+const GetUser = async (req, res) => {
+    const id = req.query.id
+    const pagina = req.query.pagina || 1
+    
+    if(pagina < 1){
+        pagina = 1
+    }
+    try {
+        const sequelize = await db
+        const user = User(sequelize)
+        const pular = (pagina - 1) * 10
+
+        let getUsers
+        
+
+        if (!id) {
+            getUsers = await user.findAll({
+                limit:10,
+                offset:pular
+            })
+            return res.status(200).json({ message: "Usuarios registrados", data: getUsers })
+        }
+        getUsers = await user.findAll({
+            where: {
+                id: id
+            }
+        })
+        if (!getUsers) {
+            return res.status(400).json({ message: "Erro ao trazer usuarios" })
+        }
+
+        return res.status(200).json({ message: "Usuarios registrados:", data: getUsers })
+    } catch (error) {
+        console.error("Erro no ImgUser:", error)
+        const sqlMsg = error.parent?.sqlMessage
+        return res.status(500).json({ message: "Erro no servidor", erro: sqlMsg })
+    }
+
+}
 
 
 module.exports = {
     CriarUser,
-    ImgUser
+    ImgUser,
+    GetUser
 }
