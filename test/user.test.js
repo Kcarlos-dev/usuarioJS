@@ -1,8 +1,18 @@
 const app = require("../src/app")
 const supertest = require("supertest")
-const mysql = require('mysql2')
+const db = require('../src/config/db')
 const request = supertest(app)
 
+beforeAll(async () => {
+    await db.then((res) => {
+        res.sync({ force: true })
+    })
+})
+afterAll(async () => {
+    await db.then((res) => {
+        res.close()
+    })
+});
 describe("Cadastro de usuario", () => {
     test("Deve cadastrar um usuario com sucesso", () => {
         const user = {nome:"Carlos Souza",
@@ -22,3 +32,4 @@ describe("Cadastro de usuario", () => {
             })
     })
 })
+
