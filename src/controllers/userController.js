@@ -209,6 +209,31 @@ const UpdateBio = async (req, res) => {
     }
 
 }
+const DeleteUser = async (req, res) => {
+    const id = req.params.id
+    try {
+        const sequelize = await db
+        const user = User(sequelize)
+        if (!id) {
+            return res.status(400).json({ error: 'O ID é obrigatório' })
+        }
+        const delUser = user.destroy({
+            where:{
+                id:id
+            }
+        })
+        if (!delUser) {
+            return res.status(400).json({ message: "Erro ao deletar user" })
+        }
+        return res.status(200).json({ message: "User deletado com sucesso" })
+
+    } catch (error) {
+        console.error("Erro no DeleteUser:", error)
+        const sqlMsg = error.parent?.sqlMessage
+        return res.status(500).json({ message: "Erro no servidor", erro: sqlMsg })
+    }
+
+}
 
 module.exports = {
     CriarUser,
@@ -216,5 +241,6 @@ module.exports = {
     GetUser,
     UpdateUser,
     UpdateEnderco,
-    UpdateBio
+    UpdateBio,
+    DeleteUser
 }
