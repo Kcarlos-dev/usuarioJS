@@ -40,6 +40,7 @@
 
 <script>
 import alertComponent from '@/components/alertComponent.vue';
+import apiNode from '@/app'
 export default {
     components: {
         alertComponent
@@ -61,33 +62,25 @@ export default {
     },
     methods: {
         btnCadastrar() {
-            this.cor = "alert-danger"
-            
-            if (this.nome.trim().length <= 0) {
-                this.exibir = !this.exibir
-                return this.msg = "O campo 'nome' precisa está preenchido"
+            const data = {
+                nome: this.nome,
+                idade: this.idade,
+                biografia: this.biografia,
+                rua: this.endereco.rua,
+                bairro: this.endereco.bairro,
+                estado: this.endereco.estado
             }
-            if (this.idade <= 0) {
-                this.exibir = !this.exibir
-                return this.msg = "O campo 'idade' precisa está preenchido"
-            }
-            if (this.biografia.trim().length <= 0) {
-                this.exibir = !this.exibir
-                return this.msg = "O campo 'biografia' precisa está preenchido"
-            }
-            if (this.endereco.rua.trim().length <= 0) {
-                this.exibir = !this.exibir
-                 this.msg = "O campo 'rua' precisa está preenchido"
-                 return
-            }
-            if (this.endereco.estado.trim().length <= 0) {
-                this.exibir = !this.exibir
-                return this.msg = "O campo 'estado' precisa está preenchido"
-            }
-            if (this.endereco.bairro.trim().length <= 0) {
-                this.exibir = !this.exibir
-                return this.msg = "O campo 'bairro' precisa está preenchido"
-            }
+            apiNode.postApiUser(data).then(res => {
+                if (res.success) {
+                    this.cor = "alert-success"
+                    this.exibir = !this.exibir
+                    return this.msg = res.data.message
+                }else{
+                    this.cor = "alert-danger"
+                    this.exibir = !this.exibir
+                    return this.msg = res.error
+                }
+            })
 
 
         }

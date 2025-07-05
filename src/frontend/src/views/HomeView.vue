@@ -2,12 +2,12 @@
     <main>
         <section style="height:calc(100vh - 56px); " class="d-flex justify-content-center align-items-center">
             <div class="d-flex flex-column flex-md-row tela h-25 justify-content-center align-items-center">
-                <button class="btn bg-dark">
-                   <RouterLink to="/usuario" class="text-decoration-none text-light ">Criar usuário</RouterLink>
-                </button>
-                <button class="btn bg-dark">
-                  <RouterLink to="/consultar" class="text-decoration-none text-light ">Consultar usuário</RouterLink>
-                </button>
+
+                <RouterLink to="/usuario" class="btn bg-dark text-decoration-none text-light btnDev">Criar usuário
+                </RouterLink>
+
+                <RouterLink to="/consultar" class="btn bg-dark text-decoration-none text-light btnDev">Consultar usuário
+                </RouterLink>
             </div>
         </section>
     </main>
@@ -30,11 +30,14 @@ export default {
     width: 50vw
 }
 
-.tela button {
+.btnDev {
     height: 10vh;
     box-sizing: border-box;
     width: 200px;
     margin-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -43,7 +46,7 @@ export default {
         width: 100vw;
     }
 
-    .tela button {
+    .btnDev {
         margin-top: 10px;
     }
 
