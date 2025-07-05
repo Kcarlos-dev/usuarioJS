@@ -1,0 +1,8 @@
+<svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Casa apenas com telhado e paredes -->
+  <path d="M12 3L2 12h3v8h14v-8h3z" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="1.5"
+        stroke-linejoin="round"/>
+</svg>
