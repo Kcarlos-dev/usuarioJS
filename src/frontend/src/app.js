@@ -1,5 +1,9 @@
 import axios from "axios";
-const host = ''
+const host = 'http://192.168.100.220:3000'
+
+function getHost(){
+    return host
+}
 
 const getApiUsers = (data) => {
     if (!data) {
@@ -93,5 +97,6 @@ const putApiImg = (data) => {
 export default {
     getApiUsers,
     postApiUser,
-    putApiImg
+    putApiImg,
+    getHost
 }

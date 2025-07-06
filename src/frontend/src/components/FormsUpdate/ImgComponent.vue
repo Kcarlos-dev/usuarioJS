@@ -1,12 +1,12 @@
 <template>
     <main v-if="exibir" class="bg-light ">
         <section class="p-2">
-            <div >
+            <div>
                 <label>Imagem:</label>
-                <input class="bg-dark text-light w-100 p-2 m-1 rounded-2" type="file">
+                <input ref="fileInput" class="bg-dark text-light w-100 p-2 m-1 rounded-2" type="file" accept="image/*">
             </div>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-success">
+                <button @click="btnConfirmar" class="btn btn-success">
                     confirmar
                 </button>
             </div>
@@ -14,8 +14,14 @@
     </main>
 </template>
 <script>
-export default{
-    props:{
+import app from '@/app';
+export default {
+    data() {
+        return {
+
+        }
+    },
+    props: {
         exibir: {
             type: Boolean,
             default: false
@@ -23,6 +29,21 @@ export default{
         id: {
             type: Number,
             default: null
+        }
+    },
+    methods: {
+        btnConfirmar() {
+            const fileInput = this.$refs.fileInput
+            const file = fileInput.files[0]
+            const data = {
+                id: this.id,
+                img: file
+            }
+            app.putApiImg(data)
+            .then(res =>{
+                console.log(res)
+                alert(res.data)
+            })
         }
     }
 }

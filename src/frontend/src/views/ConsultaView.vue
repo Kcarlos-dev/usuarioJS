@@ -3,9 +3,21 @@
     width: 50vw !important;
 }
 
+.imgPerfil {
+    width: 10vw;
+    height: 25vh;
+    border-radius: 5px;
+    border: 3px solid black;
+}
+
 @media(max-width: 700px) {
     .sectionMobile {
         width: 100vw !important;
+    }
+
+    .imgPerfil {
+        width: 30vw;
+        height: 20vh;
     }
 }
 </style>
@@ -21,6 +33,8 @@
                         {{ user.biografia }}
                     </article>
                     <div class="table-responsive">
+                        <!-- unico motivo desse v-show e pq no Safari a tabela ficava aparecendo
+                         ao chamar alterar usuario -->
                         <table v-show="!exbir" class="table table-striped table-dark">
                             <thead>
                                 <tr>
@@ -40,7 +54,8 @@
                     </div>
                 </div>
                 <div class="d-flex flex-column mx-2">
-                    <img :src="'/'" @error="e => e.target.src = require('@/assets/icons/user.svg')" alt="Avatar">
+                    <img class="imgPerfil" :src="host + user.img"
+                        @error="e => e.target.src = require('@/assets/icons/user.svg')" alt="Avatar">
                     <button @click="AlterarPerfil(user.id)" class="btn btn-success">Alterar perfil</button>
                 </div>
 
@@ -58,12 +73,14 @@ export default {
     },
     data() {
         return {
+            host: "",
             exbir: false,
             users: "",
             id: null,
         }
     },
     mounted() {
+        this.host = app.getHost()
         app.getApiUsers()
             .then(({ data }) => {
                 this.users = data.data
