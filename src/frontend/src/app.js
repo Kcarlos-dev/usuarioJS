@@ -1,6 +1,30 @@
 import axios from "axios";
 const host = 'http://192.168.100.220:3000'
 
+const getApiUsers = (data) => {
+    if (!data) {
+        return axios.get(`${host}/api/user`)
+            .then(response => ({
+                success: true,
+                data: response.data
+            }))
+            .catch(error => ({
+                success: false,
+                error: error.response?.data || error.message
+            }))
+    }
+    return axios.get(`${host}/api/user?id=${data.id}&pagina=${data.pag}`)
+        .then(response => ({
+            success: true,
+            data: response.data
+        }))
+        .catch(error => ({
+            success: false,
+            error: error.response?.data || error.message
+        }))
+
+}
+
 const postApiUser = (obj) => {
 
     if (obj.nome.trim().length <= 0) {
@@ -67,6 +91,7 @@ const putApiImg = (data) => {
 }
 
 export default {
+    getApiUsers,
     postApiUser,
     putApiImg
 }

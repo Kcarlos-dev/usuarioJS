@@ -1,0 +1,14 @@
+<svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Círculo da lupa -->
+  <circle cx="11" cy="11" r="7" 
+          fill="none" 
+          stroke="#bebebe" 
+          stroke-width="2"/>
+  
+  <!-- Cabo da lupa -->
+  <line x1="16" y1="16" 
+        x2="21" y2="21" 
+        stroke="#ffffff" 
+        stroke-width="2"
+        stroke-linecap="round"/>
+</svg>
