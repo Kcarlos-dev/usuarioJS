@@ -41,8 +41,11 @@ export default {
             }
             app.putApiImg(data)
             .then(res =>{
-                console.log(res)
-                alert(res.data)
+                if(!res.success){
+                    return alert("Vc precisa cadastrar uma imagem")
+                }
+                alert(res.data.message)
+                this.$refs.fileInput.value = ''
             })
         }
     }

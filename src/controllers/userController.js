@@ -1,5 +1,6 @@
 const db = require("../config/db")
 const User = require("../models/User")
+const fs = require('fs')
 const CriarUser = (req, res) => {
     try {
         const { nome, idade, biografia, endereco } = req.body
@@ -40,13 +41,29 @@ const ImgUser = async (req, res) => {
         const sequelize = await db
         const user = User(sequelize)
 
-        const idVerificado = await user.findOne({
-            attributes: ['id'],
+        const idVerificado = await user.findAll({
+            attributes: ['id', 'img'],
             where: { id }
         })
 
         if (!idVerificado) {
             return res.status(400).json({ message: "ID inválido" })
+        }
+
+        if (idVerificado[0].dataValues.img) {
+            const oldImgPath = idVerificado[0].dataValues.img.replace(/^\//, '')  
+
+            if (fs.existsSync(oldImgPath)) {
+                fs.unlink(oldImgPath, (err) => {
+                    if (err) {
+                        console.error('Erro ao deletar a imagem antiga:', err);
+                    } else {
+                        console.log('Imagem antiga deletada com sucesso');
+                    }
+                });
+            } else {
+                console.warn('Arquivo antigo não encontrado para deletar:', oldImgPath);
+            }
         }
 
         const imgPath = `/storage/img/${req.file.filename}`
@@ -217,8 +234,8 @@ const DeleteUser = async (req, res) => {
             return res.status(400).json({ error: 'O ID é obrigatório' })
         }
         const delUser = user.destroy({
-            where:{
-                id:id
+            where: {
+                id: id
             }
         })
         if (!delUser) {
