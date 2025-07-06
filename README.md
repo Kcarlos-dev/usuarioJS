@@ -1,4 +1,3 @@
-
 # 🚀 Desafio Técnico – Perfil de Usuário
 
 Este é um projeto web full stack que implementa uma interface de perfil de usuário com funcionalidades de **exibição**, **criação**, **edição** e **exclusão** de dados. As informações são salvas em um banco de dados **MySQL** e a aplicação possui design **responsivo**, funcionando suave em desktop e mobile.
@@ -25,7 +24,7 @@ O projeto é dividido em duas partes principais:
 
 ## 📂 Estrutura do Repositório
 
-\`\`\`
+```
 /
 ├── src/
 │   ├── app.js                  # Arquivo principal do Express
@@ -52,7 +51,7 @@ O projeto é dividido em duas partes principais:
 └── test/
     ├── server.test.js          # Testes do servidor
     └── user.test.js            # Testes de usuário
-\`\`\`
+```
 
 ## 🛠️ Configuração e Execução
 
@@ -68,55 +67,55 @@ O projeto é dividido em duas partes principais:
 **a. Variáveis de ambiente**  
 Crie um arquivo `.env` na raiz do projeto:
 
-\`\`\`
+```
 DB_HOST=localhost
 DB_USER=seu_usuario_mysql
 DB_PASSWORD=sua_senha_mysql
 DB_PORT=3306
 DB_DATABASE=nome_do_seu_banco_de_dados
 NODE_HOST=localhost
-\`\`\`
+```
 
 **b. Instalação das dependências**
 
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 **c. Rodar o backend**
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
-👉 O servidor vai subir em: \`http://localhost:3000\`
+👉 O servidor vai subir em: `http://localhost:3000`
 
 ---
 
 ### 2️⃣ Configuração do Frontend
 
 **a. Configurar o endereço da API**  
-Abra o arquivo \`src/frontend/src/app.js\` e ajuste o host:
+Abra o arquivo `src/frontend/src/app.js` e ajuste o host:
 
-\`\`\`js
+```js
 import axios from "axios";
 const host = 'http://localhost:3000'; // <--- ALTERE AQUI
-\`\`\`
+```
 
 **b. Instalar dependências**
 
-\`\`\`bash
+```bash
 cd src/frontend
 npm install
-\`\`\`
+```
 
 **c. Rodar o frontend**
 
-\`\`\`bash
+```bash
 npm run serve
-\`\`\`
+```
 
-👉 Acesse em: \`http://localhost:8080\`
+👉 Acesse em: `http://localhost:8080`
 
 ---
 
@@ -134,8 +133,8 @@ npm run serve
 
 Rodar testes de integração do backend:
 
-\`\`\`bash
+```bash
 npm test
-\`\`\`
+```
 
 ---
