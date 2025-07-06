@@ -3,18 +3,20 @@
         <section class="bg-dark d-flex flex-column rounded-2 tela p-2">
             <h2 class="text-light text-center m-2">O que você quer alterar?</h2>
             <div style="overflow-y: auto;">
-                <div  class="d-flex flex-column justify-content-center align-items-center h-auto">
+                <div class="d-flex flex-column justify-content-center align-items-center h-auto">
                     <button @click="btnImg" class="w-100 btn btn-primary">Imagem</button>
                     <imgComponent :exibir="exibirImg" :id="id"></imgComponent>
-    
+
                     <button @click="btnNome" class="w-100 btn btn-primary my-2">Nome/Idade</button>
                     <NomeComponent :exibir="exibirNome" :id="id"></NomeComponent>
-    
+
                     <button @click="btnBio" class="w-100 btn btn-primary">Bio</button>
                     <BioComponent :exibir="exibirBio" :id="id"></BioComponent>
-    
+
                     <button @click="btnEndereco" class="w-100 btn btn-primary my-2">Endereço</button>
                     <EndercoComponent :exibir="exibirEndereco" :id="id"></EndercoComponent>
+
+                    <button @click="btnDelete" class="w-100 btn btn-danger my-2">DELETAR</button>
                     <br>
                 </div>
             </div>
@@ -29,17 +31,18 @@ import imgComponent from '@/components/FormsUpdate/ImgComponent.vue'
 import NomeComponent from '@/components/FormsUpdate/NomeComponent.vue'
 import BioComponent from '@/components/FormsUpdate/BioComponent.vue'
 import EndercoComponent from '@/components/FormsUpdate/EnderecoComponent .vue'
+import apiNode from '@/app'
 export default {
     data() {
         return {
-            exibirImg:false,
-            exibirNome:false,
-            exibirBio:false,
-            exibirEndereco:false
-            
+            exibirImg: false,
+            exibirNome: false,
+            exibirBio: false,
+            exibirEndereco: false
+
         }
     },
-    components:{
+    components: {
         imgComponent,
         NomeComponent,
         BioComponent,
@@ -59,18 +62,30 @@ export default {
     methods: {
         btnFechar() {
             this.$emit('EmitFechar', this.exibir)
+            location.reload()
         },
-        btnImg(){
+        btnImg() {
             this.exibirImg = !this.exibirImg
         },
-        btnNome(){
+        btnNome() {
             this.exibirNome = !this.exibirNome
         },
-        btnBio(){
+        btnBio() {
             this.exibirBio = !this.exibirBio
         },
-        btnEndereco(){
-            this.exibirEndereco = !this.exibirEndereco 
+        btnEndereco() {
+            this.exibirEndereco = !this.exibirEndereco
+        },
+        btnDelete() {
+            apiNode.deleteApiUser({ id: this.id })
+            .then(res => {
+                if (res.success) {
+                    return alert(res.data.message)
+                } else {
+                    console.log(res)
+                    return alert("Falha na alteração")
+                }
+            })
         }
     }
 }

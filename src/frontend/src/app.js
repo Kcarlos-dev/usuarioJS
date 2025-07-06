@@ -1,7 +1,7 @@
 import axios from "axios";
-const host = 'http://192.168.100.220:3000'
+const host = ''
 
-function getHost(){
+function getHost() {
     return host
 }
 
@@ -93,10 +93,77 @@ const putApiImg = (data) => {
         }))
 
 }
+const putApiName = (data) => {
+    if (data.nome.trim().length <= 0 || data.idade <= 0) {
+        return Promise.resolve({ success: false, error: "Dados invalidos" })
+    }
+
+    return axios.put(`${host}/api/user/${data.id}`, data)
+        .then(response => ({
+            success: true,
+            data: response.data
+        }))
+        .catch(error => ({
+            success: false,
+            error: error.response?.data || error.message
+        }))
+
+}
+const putApiBio = (data) => {
+    if (data.biografia.trim().length <= 0) {
+        return Promise.resolve({ success: false, error: "Digite uma Bio" })
+    }
+
+    return axios.put(`${host}/api/user/bio/${data.id}`, data)
+        .then(response => ({
+            success: true,
+            data: response.data
+        }))
+        .catch(error => ({
+            success: false,
+            error: error.response?.data || error.message
+        }))
+
+}
+const putApiEndereco = (data) => {
+    if (data.rua.trim().length <= 0 || data.bairro.trim().length <= 0 || data.estado.trim().length <= 0) {
+        return Promise.resolve({ success: false, error: "Endereço invalido" })
+    }
+    const endereco = {
+        endereco: JSON.stringify(data)
+    }
+
+    return axios.put(`${host}/api/user/endereco/${data.id}`, endereco)
+        .then(response => ({
+            success: true,
+            data: response.data
+        }))
+        .catch(error => ({
+            success: false,
+            error: error.response?.data || error.message
+        }))
+
+}
+const deleteApiUser = (data) => {
+    return axios.delete(`${host}/api/user/${data.id}`)
+        .then(response => ({
+            success: true,
+            data: response.data
+        }))
+        .catch(error => ({
+            success: false,
+            error: error.response?.data || error.message
+        }))
+
+}
 
 export default {
+    getHost,
     getApiUsers,
     postApiUser,
     putApiImg,
-    getHost
+    putApiName,
+    putApiBio,
+    putApiEndereco,
+    deleteApiUser
 }
