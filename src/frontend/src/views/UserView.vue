@@ -1,6 +1,11 @@
 <template>
     <main style="height:calc(100vh - 56px);" class="d-flex p-3 justify-content-center ">
         <alertComponent :msg="msg" :cor="cor" :exibir="exibir" />
+        <div v-show="loggin" class="text-center w-100 h-100 position-fixed bg-dark align-content-center">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
         <div class="tela d-flex flex-column justify-content-center bg-dark p-3 rounded-5">
             <div class="d-flex justify-content-center">
                 <img src="@/assets/icons/user.svg">
@@ -47,6 +52,7 @@ export default {
     },
     data() {
         return {
+            loggin: false,
             msg: "",
             cor: "",
             exibir: false,
@@ -62,6 +68,7 @@ export default {
     },
     methods: {
         btnCadastrar() {
+            this.loggin = true
             const data = {
                 nome: this.nome,
                 idade: this.idade,
@@ -74,12 +81,20 @@ export default {
                 if (res.success) {
                     this.cor = "alert-success"
                     this.exibir = !this.exibir
-                    return this.msg = res.data.message
-                }else{
+                    this.nome = ""
+                    this.idade = ""
+                    this.biografia = ""
+                    this.endereco.rua = ""
+                    this.endereco.bairro = ""
+                    this.endereco.estado = ""
+                    return this.msg = "Usuario cadastrado"
+                } else {
                     this.cor = "alert-danger"
                     this.exibir = !this.exibir
                     return this.msg = res.error
                 }
+            }).finally(() => {
+                this.loggin = false
             })
 
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-const host = 'http://192.168.100.220:3000'
+const host = ''
 
 const getApiUsers = (data) => {
     if (!data) {
