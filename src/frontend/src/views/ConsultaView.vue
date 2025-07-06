@@ -83,6 +83,9 @@ export default {
         this.host = app.getHost()
         app.getApiUsers()
             .then(({ data }) => {
+                if(!data){
+                    return alert("Não existe usuario registrado")
+                }
                 this.users = data.data
             })
     },
